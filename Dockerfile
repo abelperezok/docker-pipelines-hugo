@@ -1,5 +1,5 @@
 FROM alpine:3.6
-MAINTAINER Karel Bemelmans <mail@karelbemelmans.com>
+LABEL maintainer="Abel Perez <abelperezok@gmail.com>"
 
 # Install packages needed to build
 RUN apk add --update --no-cache \
@@ -13,8 +13,8 @@ RUN apk add --update --no-cache \
   && pip install -U awscli
 
 # Install hugo.
-ARG HUGO_VERSION=0.25.1
-ARG HUGO_SHA256=fbf8ca850aaaaad331f5b40bbbe8e797115dab296a8486a53c0561f253ca7b00
+ARG HUGO_VERSION=0.40.3
+ARG HUGO_SHA256=a3913a5aca407b8badaba30dec764c2615fc59dd0e73129ddaf5cca0e75a475f
 
 # Rember sha256sum (and md5sum) expect 2 spaces in front of the filename on alpine...
 RUN curl -Ls https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz \
