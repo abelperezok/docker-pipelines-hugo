@@ -2,9 +2,29 @@
 
 This repository has been forked from [this github repo](https://github.com/karelbemelmans/docker-pipelines-hugo) it uses currently Hugo version 0.40.3 
 
-This is a Docker image that contains Hugo, the static website generator and the aws-cli Python scripts. I use this container to deploy my Hugo blog to AWS S3 using Atlassian Bitbucket Pipelines.
+This is a Docker image that contains Hugo, the static website generator and the aws-cli Python scripts.
+It can be used to deploy Hugo site to AWS S3 using Atlassian Bitbucket Pipelines.
+
+Includes:
+* Python v2.7.14
+* AWS CLI v1.15.19
+* Hugo v0.40.3
 
 Check the original author's post [here](https://www.karelbemelmans.com/2016/10/deploying-a-hugo-website-to-amazon-s3-using-bitbucket-pipelines/) for more information about how to use this Docker image for your Pipelines setup.
+
+## Added Node, NPM and Gulp 
+Latest version also includes:
+* Node v6.10.3
+* NPM v3.10.10
+* Gulp v3.9.1
+
+## Updating the image
+
+Working on repository root directory
+
+```docker build -t abelperezok/docker-pipelines-hugo .```
+
+```docker push abelperezok/docker-pipelines-hugo:latest```
 
 ## MIT License
 

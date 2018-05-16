@@ -22,4 +22,10 @@ RUN curl -Ls https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hu
   && echo "${HUGO_SHA256}  /tmp/hugo.tar.gz" | sha256sum -c - \
   && tar xf /tmp/hugo.tar.gz -C /tmp \
   && mv /tmp/hugo /usr/bin/hugo \
-  && rm -rf /tmp/hugo* \
+  && rm -rf /tmp/hugo*
+
+# Install Node & NPM
+RUN apk add --update nodejs nodejs-npm
+
+# Install Gulp
+RUN npm i -g gulp
