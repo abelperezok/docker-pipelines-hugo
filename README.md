@@ -1,22 +1,62 @@
 # Pipelines Hugo
 
-This repository has been forked from [this github repo](https://github.com/karelbemelmans/docker-pipelines-hugo) it uses currently Hugo version 0.40.3 
+This repository has been forked from [this github repo](https://github.com/karelbemelmans/docker-pipelines-hugo) it uses currently Hugo version 0.42.1 
 
-This is a Docker image that contains Hugo, the static website generator and the aws-cli Python scripts.
+This is a Docker image based on [debian:buster-slim](https://hub.docker.com/_/debian/). It contains Hugo, the static website generator and the aws-cli Python scripts.
 It can be used to deploy Hugo site to AWS S3 using Atlassian Bitbucket Pipelines.
 
 Includes:
-* Python v2.7.14
-* AWS CLI v1.15.19
-* Hugo v0.40.3
+* Python 2.7.15
+* pip 10.0.1
+* aws-cli/1.15.44
+* Hugo Static Site Generator v0.42.1
 
 Check the original author's post [here](https://www.karelbemelmans.com/2016/10/deploying-a-hugo-website-to-amazon-s3-using-bitbucket-pipelines/) for more information about how to use this Docker image for your Pipelines setup.
 
 ## Added Node, NPM and Gulp 
 Latest version also includes:
-* Node v6.10.3
-* NPM v3.10.10
+* Node v10.5.0
+* NPM v6.1.0
 * Gulp v3.9.1
+
+## Testing the image
+
+To test what's inside, run the docker run command in interactive mode
+
+```
+PS C:\> docker run -it abelperezok/docker-pipelines-hugo:latest
+root@ab488d178286:/# python --version
+Python 2.7.15
+root@ab488d178286:/# pip -V
+pip 10.0.1 from /usr/local/lib/python2.7/dist-packages/pip (python 2.7)
+root@ab488d178286:/# aws --version
+aws-cli/1.15.44 Python/2.7.15 Linux/4.9.87-linuxkit-aufs botocore/1.10.44
+root@ab488d178286:/# hugo version
+Hugo Static Site Generator v0.42.1 linux/amd64 BuildDate: 2018-06-13T13:44:44Z
+root@ab488d178286:/# node --version
+v10.5.0
+root@ab488d178286:/# npm --version
+6.1.0
+root@ab488d178286:/# gulp --version
+[09:50:14] CLI version 3.9.1
+```
+
+## Sample bitbucket-pipelines.yml
+
+```yaml
+image: abelperezok/docker-pipelines-hugo:latest
+
+pipelines:
+  default:
+    - step:
+        script:
+          - cd site/src
+          - npm i
+          - gulp
+          - cd ..
+          - hugo -D
+          - aws s3 sync public s3://your-bucket-name-here --delete
+```
 
 ## Updating the image
 
